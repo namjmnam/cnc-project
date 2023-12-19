@@ -1,6 +1,6 @@
 import socket
 
-def connect_to_server(host='192.168.0.74', port=12345):
+def connect_to_server(host='127.0.0.1', port=12345):
     """Establish a connection to the server."""
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((host, port))
@@ -22,6 +22,8 @@ def main():
 
         # Perform computation
         result = perform_computation(data)
+
+        print(result)
 
         # Optionally, send the result back to the server
         client_socket.send(result.encode())
