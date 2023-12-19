@@ -1,32 +1,44 @@
 import socket
 
+def is_prime(n):
+    """Check if a number is prime."""
+    if n <= 1:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+def find_primes_in_range(start, end):
+    """Find all prime numbers within range."""
+    primes = []
+    for number in range(start, end + 1):
+        if is_prime(number):
+            primes.append(number)
+    return primes
+
 def connect_to_server(host='127.0.0.1', port=12345):
     """Establish a connection to the server."""
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((host, port))
     return client_socket
 
-def perform_computation(data):
-    """Perform the assigned computation (this is a placeholder)."""
-    # Replace this with the actual computation logic
-    # For example, finding prime numbers, etc.
-    result = f"Computed result for data: {data}"
-    return result
-
 def main():
     client_socket = connect_to_server()
 
     try:
-        # Receiving task or instruction from the server
+        # Receiving range from the server
         data = client_socket.recv(1024).decode()
+        start_range, end_range = map(int, data.split('-'))
 
         # Perform computation
-        result = perform_computation(data)
+        result = find_primes_in_range(start_range, end_range)
+        print(f"Primes in range {start_range}-{end_range}:\n{result}")
 
-        print(result)
-
+        message = "Done!"
+        client_socket.send(message.encode())
         # Optionally, send the result back to the server
-        client_socket.send(result.encode())
+        # client_socket.send(result.encode())
 
     finally:
         # Close the connection

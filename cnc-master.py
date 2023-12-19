@@ -21,7 +21,7 @@ def find_primes(limit):
             primes.append(number)
     return primes
 
-def find_primes_range(start, end):
+def find_primes_in_range(start, end):
     """Find all prime numbers within range."""
     primes = []
     for number in range(start, end + 1):
@@ -40,17 +40,15 @@ class Server:
 
     def handle_client(self, client_socket, client_id):
         # Allocating 10% CPU for each client (this is a placeholder)
-        psutil.cpu_percent(10)
+        psutil.cpu_percent(10) # Does this apply to server or client?
 
-        # Tell clients to compute
+        # Send data to clients
         interval = 2500
         start_range = client_id * interval + 1
         end_range = start_range + interval - 1
-        primes = find_primes_range(start_range, end_range)
-        print(primes)
-
-        # Send a message
-        message = "Thanks!"
+        # primes = find_primes_in_range(start_range, end_range)
+        # print(primes)
+        message = f"{start_range}-{end_range}"
         client_socket.send(message.encode())
 
         # Close the client connection
