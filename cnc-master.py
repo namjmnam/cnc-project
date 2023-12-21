@@ -43,7 +43,7 @@ class Server:
         psutil.cpu_percent(10) # Does this apply to server or client?
 
         # Send data to clients
-        interval = 2500
+        interval = 1000
         start_range = client_id * interval + 1
         end_range = start_range + interval - 1
         # primes = find_primes_in_range(start_range, end_range)
@@ -61,7 +61,7 @@ class Server:
 
             client_id = self.client_count
             self.client_count += 1
-            print(client_id)
+            print(f"Slave {client_id} has entered!")
 
             client_thread = threading.Thread(target=self.handle_client, args=(client_socket, client_id))
             client_thread.start()
