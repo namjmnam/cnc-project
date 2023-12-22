@@ -1,31 +1,6 @@
 import socket
 import threading
 
-def is_prime(n):
-    """Check if a number is prime."""
-    if n <= 1:
-        return False
-    for i in range(2, int(n**0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
-
-def find_primes(limit):
-    """Find all prime numbers up to a given limit."""
-    primes = []
-    for number in range(2, limit + 1):
-        if is_prime(number):
-            primes.append(number)
-    return primes
-
-def find_primes_in_range(start, end):
-    """Find all prime numbers within range."""
-    primes = []
-    for number in range(start, end + 1):
-        if is_prime(number):
-            primes.append(number)
-    return primes
-
 class Server:
     def __init__(self, host='127.0.0.1', port=12345):
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
