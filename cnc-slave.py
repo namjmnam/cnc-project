@@ -35,10 +35,12 @@ def main():
         result = find_primes_in_range(start_range, end_range)
         print(f"Primes in range {start_range}-{end_range}:\n{result}")
 
-        message = "Done!"
-        client_socket.send(message.encode())
-        # Optionally, send the result back to the server
-        # client_socket.send(result.encode())
+        # message = "Done!"
+        # client_socket.send(message.encode())
+
+        # Send the result back to the server
+        result_str = ','.join(map(str, result))
+        client_socket.send(result_str.encode())
 
     finally:
         # Close the connection

@@ -51,6 +51,10 @@ class Server:
         message = f"{start_range}-{end_range}"
         client_socket.send(message.encode())
 
+        # Receive the result from the client
+        result = client_socket.recv(1024).decode()
+        print(f"Received from client {client_id}: {result}")
+
         # Close the client connection
         client_socket.close()
 
