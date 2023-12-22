@@ -1,4 +1,5 @@
 import socket
+import time
 
 def is_prime(n):
     """Check if a number is prime."""
@@ -15,6 +16,7 @@ def find_primes_in_range(start, end):
     for number in range(start, end + 1):
         if is_prime(number):
             primes.append(number)
+        time.sleep(0.01)  # Adding a sleep interval to slow down the loop
     return primes
 
 def connect_to_server(host='127.0.0.1', port=12345):
@@ -34,9 +36,6 @@ def main():
         # Perform computation
         result = find_primes_in_range(start_range, end_range)
         print(f"Primes in range {start_range}-{end_range}:\n{result}")
-
-        # message = "Done!"
-        # client_socket.send(message.encode())
 
         # Send the result back to the server
         result_str = ','.join(map(str, result))
